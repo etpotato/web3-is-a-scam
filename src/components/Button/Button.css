@@ -1,0 +1,42 @@
+.btn {
+  display: block;
+  padding: 13px 0 11px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+
+  font-family: inherit;
+  font-size: 32px;
+  line-height: 1;
+  color: inherit;
+  text-transform: uppercase;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+
+  transition: 0.3s opacity;
+}
+
+@media (hover: hover) {
+  .btn:hover,
+  .btn:focus {
+    opacity: 0.8;
+  }
+}
+
+.btn:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.btn.live {
+  background-color: var(--accent);
+}
+
+.btn.sold {
+  background-color: var(--danger);
+}
+
+.btn.closed {
+  background-color: var(--secondary);
+}

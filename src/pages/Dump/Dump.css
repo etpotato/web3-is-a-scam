@@ -1,0 +1,23 @@
+.dump {
+  background-image: url('bg-dump.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.dump-title {
+  margin: auto auto 0 auto;
+  padding: 40px 0 80px;
+  font-size: 4rem;
+  line-height: 1;
+  letter-spacing: 2px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--dump);
+}
+
+@media (min-width: 800px) {
+  .dump-title {
+    padding-bottom: 60px;
+  }
+}

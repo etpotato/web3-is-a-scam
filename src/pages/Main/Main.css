@@ -1,0 +1,49 @@
+.main {
+  background-image: url('bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.main-content {
+  flex: 1 0 auto;
+  margin-bottom: 40px;
+}
+
+.main-img {
+  margin-bottom: 1rem;
+}
+
+.main-info {
+  margin-bottom: 2rem;
+  font-family: 'Gloria Hallelujah', 'Arial', sans-serif;
+  font-size: 18px;
+}
+
+.main-info-item {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.main-info-item:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 800px) {
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+    align-content: center;
+  }
+
+  .main-img {
+    margin-bottom: 0;
+  }
+
+  .main-text {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+  }
+}

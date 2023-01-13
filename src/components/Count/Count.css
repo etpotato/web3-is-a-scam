@@ -1,0 +1,17 @@
+.count {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 0;
+  margin-bottom: 0.25em;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--accent-text);
+}
+
+@media (min-width: 800px) {
+  .count {
+    margin-top: auto;
+  }
+}

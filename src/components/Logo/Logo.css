@@ -1,0 +1,16 @@
+.logo {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px 0;
+}
+
+.logo-img {
+  display: block;
+  max-width: 100%;
+}
+
+@media (min-width: 800px) {
+  .logo {
+    padding: 32px 0;
+  }
+}

@@ -1,0 +1,43 @@
+.social {
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  min-width: 58px;
+  padding: 16px;
+  border-radius: 8px;
+
+  font-family: 'Gloria Hallelujah', 'Arial', sans-serif;
+  font-size: 18px;
+  text-decoration: none;
+
+  color: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 36px;
+
+  cursor: pointer;
+  transition: 0.3s background-color;
+}
+
+@media (hover: hover) {
+  .social:hover,
+  .social:focus {
+    background-color: var(--accent);
+  }
+}
+
+.social-text {
+  display: none;
+  line-height: 1;
+}
+
+@media (min-width: 800px) {
+  .social {
+    padding: 8px 16px 8px 64px;
+    background-position: left 16px center;
+  }
+
+  .social-text {
+    display: inline;
+  }
+}
