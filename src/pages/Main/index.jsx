@@ -55,7 +55,12 @@ export default function Main() {
               ))}
             </div>
             <Count current={count} max={MOCKS.count.max} />
-            <Button state={btnState} onClick={handleIncrement} />
+            <Button
+              state={btnState}
+              onClick={handleIncrement}
+              className="main-cta"
+            />
+            <Button state={BUTTON_STATE.claim} />
           </div>
         </main>
         <Footer />

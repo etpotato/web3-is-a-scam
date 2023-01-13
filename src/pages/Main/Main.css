@@ -29,6 +29,10 @@
   margin-bottom: 0;
 }
 
+.main-cta {
+  margin-bottom: 2rem;
+}
+
 @media (min-width: 800px) {
   .main-content {
     display: grid;
@@ -45,5 +49,9 @@
     align-self: stretch;
     display: flex;
     flex-direction: column;
+  }
+
+  .main-cta {
+    margin-bottom: 1rem;
   }
 }
