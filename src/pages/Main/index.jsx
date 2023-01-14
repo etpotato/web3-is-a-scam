@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { createClient } from '@supabase/supabase-js'
+
 import Logo from "../../components/Logo";
 import Button, { BUTTON_STATE } from "../../components/Button";
 import Container from "../../components/Container";
@@ -7,7 +10,6 @@ import Footer from "../../components/Footer";
 import Modal from "../../components/Modal";
 
 import "./Main.css";
-import { useState } from "react";
 
 const MOCKS = {
   img: {
@@ -30,12 +32,49 @@ const MOCKS = {
   },
 };
 
-export default function Main() {
-  const [count, setCount] = useState(MOCKS.count.current);
-  const [modalOpen, setModalOpen] = useState(false);
+const SB = {
+  project: import.meta.env.VITE_SUPABASE_URL,
+  key: import.meta.env.VITE_SUPABASE_ANON_KEY,
+}
 
+export default function Main() {
+  const [currentCount, setCurrentCount] = useState(1);
+  const [maxCount, setMaxCount] = useState(10);
+  const [userCount, setUserCount] = useState(0)
+  const [modalOpen, setModalOpen] = useState(false);
+  
   const btnState =
-    count < MOCKS.count.max ? BUTTON_STATE.live : BUTTON_STATE.sold;
+    currentCount < maxCount ? BUTTON_STATE.live : BUTTON_STATE.sold;
+
+  useEffect(() => {
+    const supabase = createClient(SB.project, SB.key);
+    
+    async function getCounter() {
+      try {
+        const counterTable = await supabase.from('counter').select();
+        const counterData = counterTable?.data[0];
+
+        if (!counterData) return
+
+        const handleRecordUpdated = (update) => {
+          setCurrentCount(update.new.current_value)
+          setMaxCount(update.new.max_value)
+        }
+                
+        supabase
+          .channel(`public:counter:id=eq.${counterData.id}`)
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'counter', filter: `id=eq.${counterData.id}` }, handleRecordUpdated)
+          .subscribe()
+
+        setCurrentCount(counterData.current_value)
+        setMaxCount(counterData.max_value)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    
+    getCounter()
+  }, [])
 
   const handleClaim = () => {
     setModalOpen(true);
@@ -57,7 +96,7 @@ export default function Main() {
                 </p>
               ))}
             </div>
-            <Count current={count} max={MOCKS.count.max} />
+            <Count current={currentCount} max={maxCount} />
             <Button state={btnState} className="main-cta" />
             <Button onClick={handleClaim} state={BUTTON_STATE.claim} />
           </div>
@@ -66,9 +105,9 @@ export default function Main() {
         <Modal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          count={count}
-          maxCount={MOCKS.count.max}
-          onChange={setCount}
+          count={userCount}
+          maxCount={maxCount - currentCount}
+          onChange={setUserCount}
         />
       </Container>
     </div>
