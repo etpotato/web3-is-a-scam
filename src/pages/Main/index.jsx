@@ -39,7 +39,7 @@ const SB = {
 }
 
 export default function Main() {
-  const [currentCount, setCurrentCount] = useState(1);
+  const [currentCount, setCurrentCount] = useState(0);
   const [maxCount, setMaxCount] = useState(10);
   const [userCount, setUserCount] = useState(0)
   const [modalOpen, setModalOpen] = useState(false);
@@ -97,7 +97,7 @@ export default function Main() {
                 </p>
               ))}
             </div>
-            <Count current={currentCount} max={maxCount} />
+            { currentCount ? <Count current={currentCount} max={maxCount} /> : null }
             <Button state={btnState} className="main-cta" />
             <Button onClick={handleClaim} state={BUTTON_STATE.claim} />
           </div>
