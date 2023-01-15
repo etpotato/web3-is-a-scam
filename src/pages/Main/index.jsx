@@ -35,6 +35,7 @@ const MOCKS = {
 const SB = {
   project: import.meta.env.VITE_SUPABASE_URL,
   key: import.meta.env.VITE_SUPABASE_ANON_KEY,
+  table: 'counter',
 }
 
 export default function Main() {
@@ -51,7 +52,7 @@ export default function Main() {
     
     async function getCounter() {
       try {
-        const counterTable = await supabase.from('counter').select();
+        const counterTable = await supabase.from(SB.table).select();
         const counterData = counterTable?.data[0];
 
         if (!counterData) return
@@ -62,8 +63,8 @@ export default function Main() {
         }
                 
         supabase
-          .channel(`public:counter:id=eq.${counterData.id}`)
-          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'counter', filter: `id=eq.${counterData.id}` }, handleRecordUpdated)
+          .channel(`public:${SB.table}:id=eq.${counterData.id}`)
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: SB.table, filter: `id=eq.${counterData.id}` }, handleRecordUpdated)
           .subscribe()
 
         setCurrentCount(counterData.current_value)
